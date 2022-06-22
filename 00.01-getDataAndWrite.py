@@ -10,15 +10,6 @@ from pyspark.sql.functions import col,lit
 
 # COMMAND ----------
 
-# DBTITLE 1,get the properties to connect with azure sql database
-jdbcUsername = dbutils.secrets.get(scope='azureSQLScope' , key='azuresql-username')
-jdbcPassword =  dbutils.secrets.get(scope='azureSQLScope' , key='azuresql-password')
-jdbcHostname = 'sqldatabricksetl.database.windows.net'
-jdbcPort = 1433
-jdbcDriver = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
-
-# COMMAND ----------
-
 # DBTITLE 1,get functions
 # MAGIC %run "./00.00-functions"
 
@@ -57,18 +48,7 @@ writeToSQL(db= 'unificado' , table= 'Unificado', dff = df_withoutDuplicates, mod
 
 # COMMAND ----------
 
-a
-
-# COMMAND ----------
-
-df_from_databricks = spark.sql("select * from datos")
-print((df_from_databricks.count(), len(df_from_databricks.columns)))
-
-
-# COMMAND ----------
-
-df_from_databricks.printSchema()
-
-# COMMAND ----------
-
-writeToSQL(db= 'unificado' , table= 'Unificado', dff = df_from_databricks, mode='overwrite')
+#write a full original table
+#df_from_databricks = spark.sql("select * from datos")
+#print((df_from_databricks.count(), len(df_from_databricks.columns)))
+#writeToSQL(db= 'unificado' , table= 'Unificado', dff = df_from_databricks, mode='overwrite')

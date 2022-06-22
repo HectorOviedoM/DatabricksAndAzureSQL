@@ -9,6 +9,14 @@ from pyspark.sql.functions import col,lit
 
 # COMMAND ----------
 
+jdbcUsername = dbutils.secrets.get(scope='azureSQLScope' , key='azuresql-username')
+jdbcPassword =  dbutils.secrets.get(scope='azureSQLScope' , key='azuresql-password')
+jdbcHostname = 'sqldatabricksetl.database.windows.net'
+jdbcPort = 1433
+jdbcDriver = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
+
+# COMMAND ----------
+
 def GetDataFromUrl(url:str) -> pyspark.sql.dataframe.DataFrame:
     "Return a dataframe from a url"
     
@@ -56,3 +64,7 @@ def writeToSQL(db :str , table: str , dff , mode:str):
           .save()
     except Exception as e:
         dbutils.notebook.exit(f"error writting dataframe to sql because {e}") 
+
+# COMMAND ----------
+
+
